@@ -1,71 +1,82 @@
 ==============================================================================
-NEW_PROJECT — Vorlagen- und Regel-Ordner
+NEW PROJECT — Universelle Guidelines- und Vorlagen-Quelle (Source of Truth #1)
 ==============================================================================
 
 Zweck:
-  Dieser Ordner enthält alle Dateien, die jedes neue Claude-Projekt mit
-  Guidelines, Progress-Log und Resume-Mechanismus ausstatten.
+  Dieser Ordner ist die EINE kanonische Quelle fuer universelle Regeln, die fuer
+  JEDES Claude-Projekt gelten. Projekte kopieren diese Regeln NICHT, sondern
+  verweisen darauf — Aenderungen hier wirken automatisch in allen Projekten.
 
-Inhalt:
-  START_PROMPT.txt
-      → Universeller Start-Prompt für JEDES neue Projekt.
-        Einmal ändern: Projekt-Pfad einsetzen. Dann 1:1 in Claude einfügen.
+==============================================================================
+EINSTIEG — neues Projekt (nur EINE Datei noetig)
+==============================================================================
+Sage zu Claude EINMAL im Projektordner:
 
-  WEITERMACHEN_PROMPT_TEMPLATE.txt
-      → Vorlage für die WEITERMACHEN_PROMPT.txt, die in jedem Projekt-Root
-        liegt und nach jeder Iteration aktualisiert wird.
+  Lies "C:\Users\pc\Desktop\HTML Snippets\New Project\Lies Mich um ein neues
+  Projekt zu starten.txt" und richte das aktuelle Projekt danach ein.
 
+Claude liest dann SoT #1, legt im Projekt CLAUDE.md (Anker) + Guidelines\
+PROJECT_GUIDELINES.md + WEITERMACHEN_PROMPT.txt an und baut ggf. den Graphen.
+Danach reagiert das Projekt dauerhaft nach denselben Guidelines.
+
+==============================================================================
+ZWEI SOURCES OF TRUTH
+==============================================================================
+SoT #1 — UNIVERSELL (dieser Ordner; gilt fuer alle Projekte):
+  Lies Mich um ein neues Projekt zu starten.txt
+      → Die EINZIGE Einstiegsdatei. Sagt Claude alles zum Projektstart.
   SESSION_PROTOCOL.md
-      → Die Spielregeln (RESUME / END-OF-ITERATION / Datei-Format).
-        Wird vom START_PROMPT referenziert.
+      → Spielregeln: Resume §A, End-of-Iteration §B, Schritt-Statusblock §B2.
+  GUIDELINES_v2.md
+      → Code/Layout/Architektur/Graphify-Regeln fuer allen neuen Code.
+  Graphify_How_To_Use.txt
+      → Knowledge-Graph-Bedienung (Token sparen).
+  WEITERMACHEN_PROMPT_TEMPLATE.txt
+      → Vorlage fuer <Projekt>\WEITERMACHEN_PROMPT.txt.
+  TEMPLATE_CLAUDE.md
+      → Vorlage fuer <Projekt>\CLAUDE.md = der AUTO-PROPAGATIONS-ANKER, der das
+        Projekt mit SoT #1 verbindet (Claude Code laedt CLAUDE.md jede Session).
+  TEMPLATE_PROJECT_GUIDELINES.md
+      → Vorlage fuer <Projekt>\Guidelines\PROJECT_GUIDELINES.md (= SoT #2).
 
-  UNIVERSAL_GUIDELINES.md
-      → Layout / Architektur / Simple / Premium Guidelines.
-        Gelten für allen neu geschriebenen Code.
-
-==============================================================================
-WORKFLOW — neues Projekt anlegen
-==============================================================================
-
-1. Lege deinen Projekt-Ordner an, z.B.:
-     C:\Users\pc\Documents\MeinNeuesProjekt
-
-2. Öffne Claude Code in diesem Ordner.
-
-3. Öffne START_PROMPT.txt, ersetze einmalig
-     <HIER PROJEKTPFAD EINSETZEN>
-   durch den echten Pfad, kopiere den ganzen Text und füge ihn als ersten
-   Prompt in Claude ein.
-
-4. Claude wird:
-   - SESSION_PROTOCOL.md + UNIVERSAL_GUIDELINES.md lesen
-   - WEITERMACHEN_PROMPT_TEMPLATE.txt einmalig in deinen Projekt-Root
-     kopieren als WEITERMACHEN_PROMPT.txt
-   - Bei jeder Iteration:
-       a) progress_<YYYY-MM-DD_HH-MM-SS>.txt im Projekt-Root anlegen
-       b) WEITERMACHEN_PROMPT.txt im Projekt-Root überschreiben
+SoT #2 — PROJEKTSPEZIFISCH (im jeweiligen Projektordner):
+  <Projekt>\Guidelines\PROJECT_GUIDELINES.md
+      → Ergaenzt SoT #1; Vorrang nur bei explizitem "PROJEKT-OVERRIDE".
 
 ==============================================================================
-WORKFLOW — bestehendes Projekt fortsetzen (z.B. neue Claude-Session)
+WARUM AENDERUNGEN AUTOMATISCH ueberall GREIFEN
 ==============================================================================
+- Jedes Projekt hat ein <Projekt>\CLAUDE.md (aus TEMPLATE_CLAUDE.md). Claude Code
+  laedt es bei jeder Session automatisch. Es VERWEIST auf SESSION_PROTOCOL.md +
+  GUIDELINES_v2.md in DIESEM Ordner (keine Kopie).
+- Aendert man hier eine Regel, liest Claude in der naechsten Session jedes Projekts
+  automatisch die neue Fassung. Kein Nachziehen, keine Drift.
+- Universelle Regeln: NUR hier aendern. Projektspezifisches: NUR in
+  <Projekt>\Guidelines\PROJECT_GUIDELINES.md.
 
-1. Öffne im Projekt-Root die Datei WEITERMACHEN_PROMPT.txt.
-2. Kopiere ihren kompletten Inhalt.
-3. Füge ihn als ersten Prompt in der neuen Claude-Session ein.
-   → Claude liest nur SESSION_PROTOCOL.md + UNIVERSAL_GUIDELINES.md
-     + die neueste progress_*.txt + WEITERMACHEN_PROMPT.txt selbst
-     und macht dort weiter, wo du aufgehört hast.
+==============================================================================
+BESTEHENDE SESSION FORTSETZEN
+==============================================================================
+- Claude Code im Projektordner oeffnen → <Projekt>\CLAUDE.md laedt automatisch.
+- Zum gezielten Fortsetzen den Inhalt von <Projekt>\WEITERMACHEN_PROMPT.txt als
+  ersten Prompt einfuegen. Claude liest nur SoT #1 (SESSION_PROTOCOL/GUIDELINES) +
+  neueste progress_*.txt + WEITERMACHEN_PROMPT.txt und macht dort weiter.
+
+==============================================================================
+BESTEHENDES PROJEKT NACHRUESTEN (optional)
+==============================================================================
+Damit ein ALTES Projekt ebenfalls automatisch SoT #1 folgt: in dessen
+<Projekt>\CLAUDE.md den Block "Source of Truth #1" aus TEMPLATE_CLAUDE.md ergaenzen
+(Verweise auf SESSION_PROTOCOL.md + GUIDELINES_v2.md). Danach gilt SoT #1 dort
+ebenfalls automatisch.
 
 ==============================================================================
 WICHTIG
 ==============================================================================
-
-- Niemals progress_*.txt löschen oder überschreiben — nur WEITERMACHEN_PROMPT.txt
-  wird überschrieben.
-- Bei Pfad-/Dateinamen Umlaute IMMER als ae/oe/ue/ss schreiben.
-- Im Inhalt (Texten, Code-Kommentaren, Logs) Umlaute IMMER echt: ä/ö/ü/ß.
-- Wenn ein Projekt eigene Guidelines hat, lege sie als
-  PROJECT_GUIDELINES.md in den Projekt-Root — die ergänzen UNIVERSAL_GUIDELINES.md
-  (überschreiben sie nicht stillschweigend).
-
+- progress_*.txt nie loeschen/ueberschreiben — nur WEITERMACHEN_PROMPT.txt wird
+  ueberschrieben.
+- Dateinamen/Pfade ASCII (ae/oe/ue/ss). Inhalt (Texte, Kommentare, Logs): echte
+  Umlaute ä/ö/ü/ß.
+- START_PROMPT.txt + Start-a-new-Project_LEGACY.txt sind die ALTE (Paste-Prompt-)
+  Methode — weiterhin nutzbar, aber "Lies Mich …" ist der neue, einfachere Weg.
 ==============================================================================

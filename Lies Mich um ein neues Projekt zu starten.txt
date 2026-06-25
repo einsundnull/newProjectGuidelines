@@ -1,0 +1,93 @@
+==============================================================================
+LIES MICH — um ein neues Projekt zu starten
+(Die EINZIGE Datei, die du Claude zum Projektstart zu lesen gibst.)
+==============================================================================
+
+Anweisung an den Nutzer:
+  Sage zu Claude EINMAL pro neuem Projekt:
+    Lies "C:\Users\pc\Desktop\HTML Snippets\New Project\Lies Mich um ein neues
+    Projekt zu starten.txt" und richte das aktuelle Projekt danach ein.
+  Mehr ist nicht noetig. Diese Datei sagt Claude alles Weitere.
+
+==============================================================================
+DAS MODELL — ZWEI SOURCES OF TRUTH (SoT)
+==============================================================================
+SoT #1 — UNIVERSELL (gilt fuer JEDES Projekt, kanonisch, NIE ins Projekt kopiert):
+  Ordner: C:\Users\pc\Desktop\HTML Snippets\New Project\
+    - SESSION_PROTOCOL.md         (Resume, End-of-Iteration, Schritt-Statusblock)
+    - GUIDELINES_v2.md            (Code-/Layout-/Architektur-/Graphify-Regeln)
+    - Graphify_How_To_Use.txt     (Knowledge-Graph-Bedienung)
+  Diese Dateien bleiben HIER. Projekte VERWEISEN nur darauf (siehe SoT #2-Anker).
+  → Aenderungen/Ergaenzungen hier gelten ab der naechsten Session AUTOMATISCH in
+    ALLEN Projekten — ohne erneute Anweisung, weil jedes Projekt-CLAUDE.md zu
+    Sessionbeginn hierher liest.
+
+SoT #2 — PROJEKTSPEZIFISCH (liegt IM Projektordner):
+  <PROJEKT-ROOT>\Guidelines\PROJECT_GUIDELINES.md
+  Ergaenzt SoT #1. Vorrang NUR bei dort explizit notiertem "PROJEKT-OVERRIDE".
+
+Der Verbindungs-Anker = <PROJEKT-ROOT>\CLAUDE.md. Claude Code laedt diese Datei
+bei JEDER Session automatisch; sie zeigt auf SoT #1 + SoT #2. Dadurch reagiert
+jedes Projekt immer gleich und folgt denselben Guidelines.
+
+==============================================================================
+ARBEITSAUFTRAG fuer Claude (beim Lesen DIESER Datei sofort ausfuehren)
+==============================================================================
+0. PROJEKT-ROOT bestimmen: das aktuelle Arbeitsverzeichnis. Ist es unklar oder
+   wirkt es falsch (z.B. ein Eltern-/Home-Ordner), frage in EINEM Satz nach dem
+   Projektpfad und warte. Sonst ohne Rueckfrage weiter.
+
+1. SoT #1 lesen (in dieser Reihenfolge):
+   a) "...\New Project\SESSION_PROTOCOL.md"
+   b) "...\New Project\GUIDELINES_v2.md"      (mind. §0 Graphify + §0.5 Statusblock)
+   c) "...\New Project\Graphify_How_To_Use.txt"
+
+2. PROJEKT SCAFFOLDEN — nur anlegen, was im Projektroot noch FEHLT (nichts
+   ueberschreiben, was schon existiert):
+   a) <PROJEKT-ROOT>\CLAUDE.md
+        aus Vorlage "...\New Project\TEMPLATE_CLAUDE.md".
+        Platzhalter ersetzen (<PROJEKTNAME>, <PROJEKT-ROOT-PFAD>) und Projekt-
+        Fakten (Stack/Deploy/Besonderheiten) soweit bekannt ausfuellen.
+        ⇒ DAS ist der Auto-Propagations-Anker: Claude Code laedt es kuenftig
+          jede Session automatisch, es verweist auf SoT #1 + SoT #2 → die
+          universellen Guidelines gelten ab sofort dauerhaft, OHNE dass dieses
+          "Lies Mich" je wieder gelesen werden muss.
+   b) <PROJEKT-ROOT>\Guidelines\PROJECT_GUIDELINES.md
+        aus Vorlage "...\New Project\TEMPLATE_PROJECT_GUIDELINES.md"
+        (Ordner Guidelines\ anlegen, falls noetig).
+   c) <PROJEKT-ROOT>\WEITERMACHEN_PROMPT.txt
+        aus Vorlage "...\New Project\WEITERMACHEN_PROMPT_TEMPLATE.txt"
+        (Projektname/Pfad eintragen).
+   d) GRAPHIFY: falls Quellcode vorhanden UND kein <PROJEKT-ROOT>\graphify-out\
+        existiert → initialen Graphen bauen (GUIDELINES_v2 §0.2; Muell-Ordner
+        ausschliessen). Bei leerem Projekt entfaellt das bis Code existiert.
+
+3. RESUME (SESSION_PROTOCOL §A): neueste progress_*.txt im Projektroot suchen.
+   - Vorhanden: Stand in max. 4 Saetzen zusammenfassen.
+   - Keine vorhanden: "Neues Projekt, keine progress-Datei vorhanden." melden.
+
+4. AB JETZT dauerhaft einhalten (SoT #1 ist verbindlich):
+   - SESSION_PROTOCOL §B (nach jedem Schritt progress_*.txt + WEITERMACHEN_PROMPT.txt).
+   - SESSION_PROTOCOL §B2 SCHRITT-STATUSBLOCK als LETZTE Zeilen JEDER Antwort.
+   - GUIDELINES_v2 fuer allen neuen Code; GRAPHIFY-FIRST + Graph nach Aenderungen.
+   - Echte Umlaute (ä/ö/ü/ß) im Inhalt; Dateinamen ASCII.
+   - Mehrschrittige Aufgaben bekommen eine <AufgabenID>; nach jedem Schritt
+     offene Schritte melden ("Naechster Schritt <AufgabenID> n/m").
+
+5. Bestaetige in EINEM Satz, dass SoT #1 gelesen, das Projekt eingerichtet
+   (Punkt 2) und SoT #1+#2 ab jetzt aktiv sind. Dann warte auf den ersten
+   Auftrag (oder folge "NAECHSTER SCHRITT" aus der progress-Datei, falls da).
+
+==============================================================================
+WICHTIG — WARUM DAS REICHT
+==============================================================================
+- DIESE Datei wird nur EINMAL pro Projekt gelesen (beim Anlegen). Danach
+  uebernimmt <PROJEKT-ROOT>\CLAUDE.md die Anbindung an SoT #1 automatisch.
+- Folge-Sessions: Claude Code laedt <PROJEKT-ROOT>\CLAUDE.md automatisch; zum
+  Fortsetzen genuegt <PROJEKT-ROOT>\WEITERMACHEN_PROMPT.txt.
+- Universelle Guidelines werden NIE ins Projekt kopiert → keine Drift, keine
+  veralteten Kopien. Genau ein Ort fuer universelle Regeln (dieser Ordner),
+  genau ein Ort pro Projekt fuer projektspezifische (Guidelines\PROJECT_GUIDELINES.md).
+==============================================================================
+ENDE
+==============================================================================

@@ -38,10 +38,19 @@
 - `graph.json` (groß) nie komplett in den Chat lesen — nur per CLI abfragen.
 
 ### 0.4 Verankerung (keine erneute Klärung nötig)
-- Diese Regel gilt automatisch für jedes Projekt: START_PROMPT und
-  WEITERMACHEN_PROMPT_TEMPLATE referenzieren sie, und beim ersten Lauf legt
-  Claude eine minimale `CLAUDE.md` mit GRAPHIFY-FIRST im Projektroot an, die
-  Claude Code bei jeder Session automatisch lädt.
+- Diese Regel gilt automatisch für jedes Projekt. Einstieg = EINE Datei:
+  „Lies Mich um ein neues Projekt zu starten.txt" im New-Project-Ordner.
+- Beim Anlegen erzeugt Claude im Projektroot eine `CLAUDE.md` aus
+  `TEMPLATE_CLAUDE.md`. Diese ist der **Auto-Propagations-Anker**: Claude Code
+  lädt sie bei jeder Session automatisch, und sie VERWEIST (keine Kopie) auf die
+  universelle Source of Truth #1 in
+  `C:\Users\pc\Desktop\HTML Snippets\New Project\` (SESSION_PROTOCOL.md +
+  GUIDELINES_v2.md + Graphify_How_To_Use.txt) sowie auf die projektspezifische
+  SoT #2 (`<Projekt>\Guidelines\PROJECT_GUIDELINES.md`).
+- Folge: Änderungen an diesen universellen Dateien gelten ab der nächsten Session
+  in ALLEN Projekten automatisch — ohne erneute Anweisung, ohne Nachziehen von
+  Kopien. GRAPHIFY-FIRST ist Teil dieser Anbindung (Kurzform im CLAUDE.md,
+  verbindlich = dieses §0). (START_PROMPT.txt = ältere Paste-Methode, weiter gültig.)
 
 ## 0.5 Schritt-Statusblock (PFLICHT am Ende JEDES Schritts)
 

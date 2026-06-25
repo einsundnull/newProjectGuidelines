@@ -1,0 +1,56 @@
+ORIGINAL-PROMPT:
+Jedes Projekt das ich von jetzt an starte soll wie myLangSite reagieren, wenn ich
+Claude anweise die Guidelines aus "C:\Users\pc\Desktop\HTML Snippets\New Project"
+zu lesen und ans jeweilige Projekt anzupassen. Zu Beginn EINE Source of Truth
+(New Project), im Verlauf zwei (New Project + <Projekt>\Guidelines). Ziel: Guidelines
+so schreiben, dass ich nur EINE Datei lesen lasse ("Lies Mich um ein neues Projekt
+zu starten.txt"), Claude sofort weiss was zu tun ist, jedes Projekt gleich reagiert
+und denselben Guidelines folgt. Aenderungen an den universellen Guidelines sollen
+danach OHNE weitere Anweisung sofort in allen Projekten greifen (universelle +
+projektspezifische Guidelines).
+
+ROOT CAUSE:
+Kein Fehler, Setup-/Workflow-Feature. Bestehendes System hatte zwei Luecken:
+(1) kein einzelner Einstieg (START_PROMPT verlangt Pfad-Einsetzen + 4 Datei-Reads);
+(2) keine Auto-Propagation — das beim Start angelegte Projekt-CLAUDE.md trug nur
+"Graphify-First", aber KEINEN Verweis auf die universelle SoT. Darum wirkten
+Aenderungen an SESSION_PROTOCOL/GUIDELINES_v2 nicht automatisch in Projekten.
+
+LOESUNGSVORSCHLAG:
+Hebel = Claude Code laedt <Projekt>\CLAUDE.md jede Session automatisch. Dieses
+CLAUDE.md per VERWEIS (nicht Kopie) auf die universelle SoT zeigen lassen →
+Aenderungen dort gelten sofort ueberall. Dazu eine einzige selbst-erklaerende
+Einstiegsdatei, die das Projekt scaffoldet. Verworfen: @import in CLAUDE.md
+(Pfad mit Leerzeichen "HTML Snippets" → @import unzuverlaessig) und Aufblaehen der
+globalen ~/.claude/CLAUDE.md (wuerde JEDE Session ueberall belasten).
+
+TATSAECHLICHE LOESUNG (alles in C:\Users\pc\Desktop\HTML Snippets\New Project\):
+- NEU "Lies Mich um ein neues Projekt zu starten.txt" — einzige Einstiegsdatei;
+  beschreibt Zwei-SoT-Modell + Arbeitsauftrag (SoT #1 lesen → Projekt scaffolden:
+  CLAUDE.md + Guidelines\PROJECT_GUIDELINES.md + WEITERMACHEN_PROMPT.txt + Graph →
+  Resume → SoT dauerhaft aktiv).
+- NEU "TEMPLATE_CLAUDE.md" — Vorlage fuer <Projekt>\CLAUDE.md = Auto-Propagations-
+  Anker; verweist (absolute Pfade) auf SESSION_PROTOCOL.md (immer), GUIDELINES_v2.md
+  (vor Code-Aenderung), Graphify_How_To_Use.txt + SoT #2; Kurzfassungen Graphify/
+  Resume; Projekt-Fakten-Platzhalter.
+- NEU "TEMPLATE_PROJECT_GUIDELINES.md" — Vorlage fuer SoT #2 (ergaenzt #1; Abweichung
+  nur via "PROJEKT-OVERRIDE").
+- README.txt neu gefasst: Ein-Datei-Einstieg, Zwei-SoT-Modell, Auto-Propagations-
+  Erklaerung, Nachruest-Hinweis fuer Altprojekte. DRIFT behoben: README nannte
+  "UNIVERSAL_GUIDELINES.md", reale Datei ist "GUIDELINES_v2.md".
+- GUIDELINES_v2.md §0.4 "Verankerung" aktualisiert: CLAUDE.md verweist jetzt auf
+  SoT #1 (nicht nur Graphify-First) → Auto-Propagation dokumentiert.
+- Memory reference_new_project_template.md aktualisiert (Einstiegsdatei, Templates,
+  Zwei-SoT, Auto-Propagation).
+
+NICHT GETAN (bewusst): kein git push (User via Push-New-Guidelines.sh); globale
+~/.claude/CLAUDE.md unangetastet; bestehende Projekte (myLangSite/German) nicht
+nachgeruestet (optionaler Einzeiler im jeweiligen CLAUDE.md, in README beschrieben).
+
+STATUS:
+geloest (Templates fertig; Test = erstes neues Projekt damit anlegen + ggf. push).
+
+NAECHSTER SCHRITT:
+Optional: (a) Push der Guidelines via Push-New-Guidelines.sh; (b) Altprojekte
+nachruesten (SoT-#1-Block ins jeweilige CLAUDE.md); (c) beim naechsten neuen
+Projekt "Lies Mich…" testen.
