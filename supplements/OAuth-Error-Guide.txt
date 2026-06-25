@@ -1,0 +1,46 @@
+ #: 1                                                                                                                                                                                                 Wo: Firebase Auth — Autorisierte Domains
+  Link: https://console.firebase.google.com/project/promojaeger-3acd8/authentication/settings
+  Was eintragen: promojaeger.easy-lang.com
+  ────────────────────────────────────────
+  #: 2
+  Wo: reCAPTCHA v3 — Domains
+  Link: https://www.google.com/recaptcha/admin
+  Was eintragen: promojaeger.easy-lang.com
+  ────────────────────────────────────────
+  #: 3
+  Wo: Firebase App Check — reCAPTCHA Provider
+  Link: https://console.firebase.google.com/project/promojaeger-3acd8/appcheck
+  Was eintragen: Geheimen Key hinterlegen + aktivieren
+  ────────────────────────────────────────
+  #: 4
+  Wo: Google Cloud API — API Key Einschränkungen (optional)
+  Link: https://console.cloud.google.com/apis/credentials?project=promojaeger-3acd8
+  Was eintragen: Falls der API Key auf bestimmte Referrer eingeschränkt ist, promojaeger.easy-lang.com/* hinzufügen
+
+  Punkte 1-3 sind Pflicht. Punkt 4 nur, falls du den Firebase API Key auf bestimmte Domains eingeschränkt hast.
+
+> Füge hinzu, wo ich die Keys finde
+
+● Domains-Checkliste für promojaeger.easy-lang.com                                                                                                                                                   
+  ┌─────┬───────────────────┬───────────────────────────────────────────────────────────────────────────────────────┬─────────────────────────────┬─────────────────────────────────────────────────┐  │  #  │        Wo         │                                         Link                                          │        Was eintragen        │             Key/Einstellung finden              │
+  ├─────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────┼─────────────────────────────┼─────────────────────────────────────────────────┤
+  │     │ Firebase Auth —   │                                                                                       │                             │ Authentication → Settings → Autorisierte        │
+  │ 1   │ Autorisierte      │ https://console.firebase.google.com/project/promojaeger-3acd8/authentication/settings │ promojaeger.easy-lang.com   │ Domains                                         │
+  │     │ Domains           │                                                                                       │                             │                                                 │
+  ├─────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────┼─────────────────────────────┼─────────────────────────────────────────────────┤
+  │     │ reCAPTCHA v3 —    │                                                                                       │                             │ Site Key (öffentlich):                          │
+  │ 2   │ Domains           │ https://www.google.com/recaptcha/admin                                                │ promojaeger.easy-lang.com   │ 6LfFmm4sAAAAAHgxlRL2pgWTviDwSpIvdplb0WsF —      │
+  │     │                   │                                                                                       │                             │ steht in js/app.js:20                           │
+  ├─────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────┼─────────────────────────────┼─────────────────────────────────────────────────┤
+  │     │ Firebase App      │                                                                                       │                             │ Secret Key:                                     │
+  │ 3   │ Check — reCAPTCHA │ https://console.firebase.google.com/project/promojaeger-3acd8/appcheck                │ Geheimen Key hinterlegen +  │ 6LfFmm4sAAAAAK0N91sls-GUgRSedMRPpNZWrXl0 — aus  │
+  │     │  Provider         │                                                                                       │ aktivieren                  │ der reCAPTCHA Admin Console unter               │
+  │     │                   │                                                                                       │                             │ "reCAPTCHA-Schlüssel" → "Geheimer Schlüssel"    │
+  ├─────┼───────────────────┼───────────────────────────────────────────────────────────────────────────────────────┼─────────────────────────────┼─────────────────────────────────────────────────┤
+  │     │ Google Cloud API  │                                                                                       │                             │ Firebase API Key:                               │
+  │ 4   │ — API Key         │ https://console.cloud.google.com/apis/credentials?project=promojaeger-3acd8           │ promojaeger.easy-lang.com/* │ AIzaSyBo6-Iz2DzKtx4ZA1v93xNu-cynh9R4DRE — steht │
+  │     │ Einschränkungen   │                                                                                       │                             │  in js/app.js:9                                 │
+  │     │ (optional)        │                                                                                       │                             │                                                 │
+  └─────┴───────────────────┴───────────────────────────────────────────────────────────────────────────────────────┴─────────────────────────────┴─────────────────────────────────────────────────┘
+
+  Punkte 1-3 sind Pflicht. Punkt 4 nur, falls der API Key auf bestimmte Referrer eingeschränkt ist (unter APIs & Services → Anmeldedaten → Key anklicken → "Anwendungseinschränkungen" prüfen).

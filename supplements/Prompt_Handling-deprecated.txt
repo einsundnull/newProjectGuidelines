@@ -1,0 +1,61 @@
+Vor jeder Ausführung einer größeren Aufgabe:
+
+Aufgaben bekommen alle eine ID: Task_<DateTime>_<NameDerAufgabe>.txt, im Folgenden als PD.txt bezeichnet.
+-> Aufteilen von größeren Aufgaben in Schritte. Diese Schritte werden mit Schritt [m/n] bezeichnet;
+---> Diese Schritte werden unterteilt in
+[A] größtes ROI
+[B] 100% Sicher
+[C] Größeres Risiko
+
+----> Du gibst auch immer eine Empfehlung heraus, welches Model welchen Schritt ausführen sollte und ob es 100% sicher
+ist, dieses Model (zum Beispiel neigt HAIKU dazu Aufgaben zu vermasseln) zu verwenden.
+Aufgaben können auch so gegliedert werden, dass wir mit den Haiku Aufgaben beginnen und danach mit Befehl /clear und 
+dem WEITERMACHEN_PROMPT.txt mit einem anderen Model die Aufgabe wieder aufgreifen um Token zu sparen.
+Versuche diese Überlegung in eine Sinnvolle Planung zu integrieren.
+-----> Es wird immer eine Empfehlung mit herausgegeben welcher Schritt als nächster ausgeführt werden soll und warum es 
+sinnvoll ist, diesen Schritt als nächstes auszuführen.
+------> Es wird nach Abschluss eines jeden Schrittes in der PD.txt angegeben, welcher Schritte erledigt wurden.
+Beispiel:
+
+Task_16_05_2025_CSS-Audit.txt 
+{
+
+<Initialer Prompt>
+
+Anzahl der Schritte:
+
+<Beschreibung der Schritte>
+[1/7] Erstellen einer Übersicht aller Tokens in <...>.css usw
+[n/m] <Weitere Beschreibungen>
+
+Fortschritt:
+
+[1/7] offen
+[2/7] abgeschlossen
+[3/7] begonnen
+[4/7] offen
+[5/7] abgeschlossen
+[6/7] abgeschlossen
+[7/7] abgeschlossen
+
+
+}
+
+#############################
+
+In WEITERMACHEN_PROMPT.txt wird immer angegeben, in welcher PD.txt wir uns gerade befinden.
+
+#############################
+
+-------> ES wird nach jedem Schritt [n/m] und nach Abschluss eines jeden Task angegeben, 
+ob und unter welchem Namen die PD.txt und der WEITERMACHEN_PROMPT.txt gespeichert wurden.
+
+#############################
+
+Lies die UNIVERSAL_GUIDELINES.md zuerst. 
+Das einhalten der Architektur und der Style-Guidelines ist absolut verpflichtend, solange diese 
+die Funktionalität der App nicht in irgendeiner Weise einschränken. Sollte es nötig sein, von den
+Style oder Architekturguidelines abzuweichen, informierst du mich vor Beginn der Aufgabe darüber
+und begründest, warum eine Abweichung notwendig ist.
+
+

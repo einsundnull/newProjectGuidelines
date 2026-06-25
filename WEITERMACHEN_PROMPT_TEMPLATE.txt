@@ -1,0 +1,99 @@
+==============================================================================
+PROMPT zum Wiederaufnehmen — <PROJEKTNAME>
+(kopieren und einfügen — Claude erkennt den Stand selbst)
+==============================================================================
+
+Wir arbeiten am Projekt "<PROJEKTNAME>" unter:
+<PROJEKT-ROOT-PFAD>
+
+ARBEITSAUFTRAG (sofort starten — keine Rückfragen, kein Projekt-Scan):
+
+GRAPHIFY-FIRST (Token sparen — gilt für die ganze Session):
+   - Lies ZUERST "<PROJEKT-ROOT-PFAD>\graphify-out\GRAPH_REPORT.md" für den
+     Projektüberblick (God-Nodes, Communities, Zyklen). Das ersetzt das Lesen
+     der Quelldateien.
+   - Konkrete Code-Fragen über die Graph-CLI gegen graphify-out\graph.json
+     beantworten: graphify query "..." / explain "X" / affected "X" / path "A" "B".
+   - Einzelne Quelldateien NUR öffnen, wenn der Graph nicht ausreicht ODER du
+     tatsächlich Code änderst (dann Datei vorher mit Read öffnen).
+   - Fehlt graphify-out\ oder ist veraltet: mit "/graphify ." (ganzes Projekt,
+     html/js/css; Müll-Ordner ausschließen) bauen. Nach Funktionsänderungen
+     auffrischen — aber bei GEFILTERTER Scope NICHT "graphify update ." (das
+     re-extrahiert alles und bläht den Graphen auf); dann gefilterten Rebuild
+     oder gezielt "graphify update <datei.js>". Details: GUIDELINES_v2 §0.2.
+
+1. Lies NUR diese Dateien (und sonst NICHTS):
+
+   "C:\Users\pc\Desktop\HTML Snippets\New Project\SESSION_PROTOCOL.md"
+   "C:\Users\pc\Desktop\HTML Snippets\New Project\GUIDELINES_v2.md"
+   "<PROJEKT-ROOT-PFAD>\graphify-out\GRAPH_REPORT.md"   (falls vorhanden — zuerst)
+   "<PROJEKT-ROOT-PFAD>\WEITERMACHEN_PROMPT.txt"
+   Neueste progress_*.txt unter "<PROJEKT-ROOT-PFAD>"
+   (höchster Timestamp = neueste Datei)
+
+   Lies NICHT (Beispiel-Ausschlüsse — anpassen pro Projekt):
+   - "<PROJEKT-ROOT-PFAD>\.git"
+   - "<PROJEKT-ROOT-PFAD>\node_modules"
+   - "<PROJEKT-ROOT-PFAD>\Doc"
+   - "<PROJEKT-ROOT-PFAD>\locales"
+   - alle Backup-/Kopie-Ordner
+
+2. Fasse den Stand in max. 4 Sätzen nach SESSION_PROTOCOL §A zusammen.
+
+3. Identifiziere den nächsten offenen Punkt aus "NÄCHSTER SCHRITT".
+
+4. Setze die Arbeit dort fort — ohne Rückfrage.
+
+5. Nach Abschluss schreibe BEIDE Dateien (SESSION_PROTOCOL §B):
+   a) progress_<YYYY-MM-DD_HH-MM-SS>.txt   (neue Datei, niemals überschreiben)
+   b) WEITERMACHEN_PROMPT.txt              (immer überschreiben, mit neuem
+                                            "AKTUELLER STAND"-Block unten)
+
+5a. SCHRITT-STATUSBLOCK (PFLICHT — die LETZTEN Zeilen JEDER Antwort, auch
+    ungefragt; Details SESSION_PROTOCOL §B2 / GUIDELINES_v2 §0.5):
+    ────────────────────────── SCHRITT-STATUS ──────────────────────────
+    # Schritt [n/m]: offen | erledigt
+    # PD.txt (Task_*.txt) aktualisiert: ja | nein | n/a
+    # progress_*.txt geschrieben: ja | nein
+    # WEITERMACHEN_PROMPT.txt aktualisiert: ja | nein
+    # WEITERMACHEN_PROMPT.txt bereinigt + Alt-Version archiviert: ja | nein | n/a
+    # Graph aktualisiert (graphify update): ja | nein | n/a
+    # Aufgabe <ID> vollständig abgeschlossen: ja | nein
+    # Nächster Schritt: [n+1/m] <kurz>  bzw. nächstes TODO: <…>
+    # "/clear" empfohlen: ja | nein
+    #   └ Wenn ja: WEITERMACHEN_PROMPT.txt UND PD.txt MÜSSEN vorher aktuell sein.
+    ─────────────────────────────────────────────────────────────────────
+    `/clear` empfehlen, wenn eine (Teil-)Aufgabe mit frischem Kontext erledigt
+    werden kann/sollte (Token sparen). Vorbedingung: beide Dateien aktuell.
+6. Aufgaben die in mehrere Schritte aufgeteilt werden, bekommen einen Namen als ID für die Aufgabe zugeordnet
+   Aufgabe "Panel Basis Class Creation" = <NameDerAufgabe>
+   	- Gib nach jedem Schritt von jetzt an immer mit an, welche Schritte noch offen sind. 
+  	 "Soll ich weitermachen? -> Nächster Schritt "<NameDerAufgabe> - Schritt n/m" 
+	- Wenn von einer Aufgabe alle Schritte erledigt sind, "Alle
+  	  Schritte der Aufgabe <NameDerAufgabe> wurden ausgeführt."
+
+7. Bestätige jetzt in EINEM Satz, dass du Punkt 1–4 ausgeführt und verstanden
+   hast. Dann wartest du auf meinen ersten konkreten Auftrag (oder folgst dem
+   "NÄCHSTER SCHRITT" aus der gefundenen progress-Datei, falls vorhanden).
+
+8. Melde am Ende: "Progress-Datei erstellt unter: <pfad>".
+   Frage dann: "Soll ich weitermachen?"
+
+==============================================================================
+AKTUELLER STAND (<DATUM>)
+==============================================================================
+
+APP_VERSION: <VERSION>
+
+ZULETZT ERLEDIGT:
+  <Liste der letzten abgeschlossenen Punkte>
+
+NÄCHSTER SCHRITT:
+  <konkreter nächster Schritt — leer wenn alles erledigt>
+
+OFFENE FRAGEN / BLOCKIERER:
+  <falls vorhanden>
+
+==============================================================================
+ENDE PROMPT
+==============================================================================

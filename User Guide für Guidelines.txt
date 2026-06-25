@@ -1,0 +1,8 @@
+  Workflow ab jetzt
+
+  - Neues Projekt: START_PROMPT.txt öffnen, Projektpfad einsetzen, in Claude einfügen
+  - Session fortsetzen: <Projektroot>\WEITERMACHEN_PROMPT.txt in Claude einfügen
+  - Projekt-individuelle Guidelines: docs\guidelines\PROJECT_GUIDELINES.md im Projektordner anlegen (Claude legt das beim ersten START_PROMPT automatisch an, wenn du es im
+  Prompt so vorgibst)
+
+"Lies task_2026-06-17_15-12_ExitModal-Fixes.txt im Projektordner und setze direkt mit Abschnitt [OFFEN] fort."

@@ -1,0 +1,76 @@
+==============================================================================
+UNIVERSELLER START-PROMPT — bei jedem neuen Projekt 1:1 einfügen
+==============================================================================
+
+Wir starten ein neues Projekt unter:
+<HIER PROJEKTPFAD EINSETZEN, z.B. C:\Users\pc\Documents\MeinNeuesProjekt>
+
+ARBEITSAUFTRAG (vor JEDER Aktion ausführen, keine Rückfragen):
+
+1. Lies in dieser Reihenfolge:
+   a) "C:\Users\pc\Desktop\HTML Snippets\New Project\SESSION_PROTOCOL.md"
+   b) "C:\Users\pc\Desktop\HTML Snippets\New Project\GUIDELINES_v2.md"
+   c) "C:\Users\pc\Desktop\HTML Snippets\New Project\Graphify_How_To_Use.txt"
+   d) "C:\Users\pc\Desktop\HTML Snippets\New Project\WEITERMACHEN_PROMPT_TEMPLATE.txt"
+   e) Falls im Projektroot bereits "graphify-out\GRAPH_REPORT.md" existiert:
+      lies ZUERST diese Datei fuer den Projektueberblick (GRAPHIFY-FIRST),
+      statt die Quelldateien zu durchsuchen.
+
+2. Kopiere die Datei WEITERMACHEN_PROMPT_TEMPLATE.txt EINMALIG in den
+   Projektroot als "WEITERMACHEN_PROMPT.txt" (falls dort noch nicht vorhanden).
+
+2a. GRAPHIFY — von Anfang an (PFLICHT, Token sparen):
+   - Falls im Projektroot KEIN Ordner "graphify-out\" existiert: baue beim
+     ersten Lauf den Knowledge-Graphen ueber das GANZE Projekt (HTML + JS + CSS),
+     mit Ausschluss von Muell-Ordnern:
+       /graphify .            (kleines Projekt; erfasst html/js/css in einem Graph)
+     Ausschliessen: node_modules, .git, graphify-out, Doc, *Kopie*, *backup*,
+     locales. Bei sehr grossen Projekten (>500 Dateien) NICHT blind "/graphify ."
+     nehmen, sondern auf die Quell-Ordner scopen (z.B. /graphify js + *.html).
+   - Lies danach IMMER ZUERST "graphify-out\GRAPH_REPORT.md" fuer den Ueberblick.
+     Konkrete Fragen ueber die Graph-CLI beantworten (graphify query/explain/
+     affected/path) statt die Codebase zu durchsuchen.
+   - NACH dem Erstellen oder Aendern von Funktionen den Graphen auffrischen:
+       graphify update .      (inkrementell, kein LLM, billig)
+     Voller Rebuild nur nach grossen Strukturaenderungen.
+   - Lege beim ERSTEN Lauf einmalig eine minimale "CLAUDE.md" im Projektroot an
+     (falls nicht vorhanden) mit dem GRAPHIFY-FIRST-Hinweis, damit jede Session
+     den Graphen automatisch zuerst nutzt — Vorlage:
+     "## Graphify-First\nLies zuerst graphify-out/GRAPH_REPORT.md. Beantworte
+      Code-Fragen via graphify query/explain/affected gegen graphify-out/graph.json,
+      statt Quelldateien zu durchsuchen. Nach Funktionsaenderungen: graphify update ."
+
+3. Suche im Projektroot nach progress_*.txt:
+   - Falls vorhanden: lies die NEUESTE und fasse sie nach SESSION_PROTOCOL §A
+     in max. 4 Sätzen zusammen.
+   - Falls KEINE existiert: melde "Neues Projekt, keine progress-Datei
+     vorhanden. Worauf soll ich starten?" und warte auf meinen Auftrag.
+
+4. Halte ab jetzt für die gesamte Session AUTOMATISCH ein:
+   - SESSION_PROTOCOL §B (END-OF-ITERATION):
+     Nach jeder abgeschlossenen Aufgabe ODER nach "weiter / commit / ok /
+     nächste" schreibst du eine NEUE progress_<YYYY-MM-DD_HH-MM-SS>.txt im
+     Projektroot UND überschreibst WEITERMACHEN_PROMPT.txt mit aktuellem Stand.
+   - GUIDELINES_v2.md gelten für allen neuen Code (Layout, Architektur,
+     Simple, Premium).
+   - GRAPHIFY: nach jedem Erstellen/Ändern von Funktionen "graphify update ."
+     ausführen, damit der Graph nie veraltet.
+   - Echte Umlaute (ä/ö/ü/ß) im Inhalt, ASCII nur für Dateinamen.
+   - Am Ende jeder Iteration meldest du: "Progress-Datei erstellt unter: <pfad>".
+
+5. Aufgaben die in mehrere Schritte aufgeteilt werden, bekommen einen Namen als ID für die Aufgabe zugeordnet
+   Aufgabe "Panel Basis Class Creation" = <NameDerAufgabe>
+   	- Gib nach jedem Schritt von jetzt an immer mit an, welche Schritte noch offen sind. 
+  	 "Soll ich weitermachen? -> Nächster Schritt "<NameDerAufgabe> - Schritt n/m" 
+	- Wenn von einer Aufgabe alle Schritte erledigt sind, "Alle
+  	  Schritte der Aufgabe <NameDerAufgabe> wurden ausgeführt."
+
+6. Bestätige jetzt in EINEM Satz, dass du Punkt 1–4 ausgeführt und verstanden
+   hast. Dann wartest du auf meinen ersten konkreten Auftrag (oder folgst dem
+   "NÄCHSTER SCHRITT" aus der gefundenen progress-Datei, falls vorhanden).
+
+
+
+==============================================================================
+ENDE START-PROMPT
+==============================================================================

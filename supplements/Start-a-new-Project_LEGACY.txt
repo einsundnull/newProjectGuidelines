@@ -1,0 +1,40 @@
+  Antworten
+
+  1. Gefundene Dateien (Phoenix Code HTML)
+  - WEITERMACHEN_PROMPT.txt — der Resume-Prompt mit aktuellem Stand
+  - AAA StartPrompt.txt — der Master-Prompt mit Session-Protokoll
+  - Guidelines New\UNIVERSAL_GUIDELINES.md — die universellen Web-Guidelines
+  - Guidelines New\Prompt_Start_Claude.txt — Variante mit Umlaut-Hinweis
+  - ca. 30 progress_*.txt Dateien (neueste: progress_2026-04-28_14-00.txt)
+
+  2. Welche Datei beim nächsten Programmstart geben?
+  Für Phoenix Code: nur diese eine Datei reicht:
+  C:\Users\pc\Documents\Phoenix Code\HTML\WEITERMACHEN_PROMPT.txt
+  Sie enthält den Arbeitsauftrag und referenziert alles andere (Guidelines, neueste progress-Datei).
+
+  3. Universeller New_Project-Ordner angelegt
+
+  Pfad: C:\Users\pc\Desktop\HTML Snippets\New Project\
+
+  ┌──────────────────────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │              Datei               │                                                  Zweck                                                  │
+  ├──────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ START_PROMPT.txt                 │ DAS ist dein universeller Start-Prompt. Pfad einsetzen, in Claude einfügen, fertig                      │
+  ├──────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ WEITERMACHEN_PROMPT_TEMPLATE.txt │ Vorlage, die Claude beim ersten Lauf einmalig in jeden Projekt-Root als WEITERMACHEN_PROMPT.txt kopiert │
+  ├──────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ SESSION_PROTOCOL.md              │ RESUME / END-OF-ITERATION / Regeln (kein Duplikat pro Projekt mehr nötig)                               │
+  ├──────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ UNIVERSAL_GUIDELINES.md          │ Layout/Architektur/Simple/Premium-Regeln (Kopie aus Phoenix Code)                                       │
+  ├──────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ README.txt                       │ Workflow-Beschreibung für dich                                                                          │
+  └──────────────────────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  So nutzt du es ab jetzt
+
+  Neues Projekt: Öffne START_PROMPT.txt, ersetze <HIER PROJEKTPFAD EINSETZEN> durch deinen Projekt-Pfad, kopier den ganzen Text und füg ihn als ersten Prompt in Claude ein. Claude liest dann
+  automatisch Guidelines + Protokoll, legt WEITERMACHEN_PROMPT.txt im Projekt-Root an und schreibt ab da pro Iteration eine neue progress_*.txt.
+
+  Session fortsetzen: Inhalt von <Projekt-Root>\WEITERMACHEN_PROMPT.txt kopieren, in Claude einfügen — Claude macht ohne Projekt-Scan dort weiter.
+
+  Memory-Eintrag reference_new_project_template.md ist gespeichert, damit ich dich in jeder zukünftigen Session direkt auf diesen Ordner verweisen kann.

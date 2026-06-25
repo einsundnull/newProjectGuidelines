@@ -1,0 +1,128 @@
+================================================================================
+GRAPHIFY — HOW TO USE  (universell, fuer JEDES Projekt)
+Zweck: (1) Wie der Knowledge-Graph gebaut/aktualisiert wird.
+       (2) Wie Claude am Session-Anfang den GRAPHEN statt der ganzen Codebase
+           liest  ->  Token sparen.
+Grundregel: Jedes Projekt wird VON ANFANG AN mit Graphify erfasst und nach
+            jedem Erstellen/Aendern von Funktionen aktualisiert.
+================================================================================
+
+
+--------------------------------------------------------------------------------
+0) WAS LIEGT WO
+--------------------------------------------------------------------------------
+Der Knowledge-Graph wird in den Projektroot nach  graphify-out/  geschrieben:
+
+  graphify-out/
+    GRAPH_REPORT.md   <- KLEIN. Projektueberblick: God-Nodes, Communities,
+                         ueberraschende Verbindungen, Import-Zyklen, offene Fragen.
+                         DAS liest Claude zuerst (statt alle Quelldateien).
+    graph.json        <- GROSS. Vollstaendiger Graph. NIE komplett lesen!
+                         Nur per  graphify query/explain/path/affected  abfragen.
+    graph.html        <- Interaktiv im Browser oeffnen (Klicken/Filtern/Suchen).
+    .graphify_python      <- interner Python-Interpreter (nicht anfassen).
+    .graphify_labels.json <- Community-Namen (intern).
+
+
+--------------------------------------------------------------------------------
+1) VORAUSSETZUNG: IST GRAPHIFY DA?
+--------------------------------------------------------------------------------
+Test:        graphify --version
+Fallback:    python -m graphify --version
+Installieren/aktualisieren (nur falls noetig):
+             pip install --upgrade graphifyy
+
+
+--------------------------------------------------------------------------------
+2) GRAPH BAUEN ODER AKTUALISIEREN
+--------------------------------------------------------------------------------
+SCOPE = GANZES PROJEKT: eine Map aus HTML + JS + CSS, aber nur QUELLCODE.
+Immer ausschliessen: node_modules, .git, graphify-out, Doc, *Kopie*, *backup*,
+locales (Archiv-/Backup-Ordner blaehen den Graphen auf und verfaelschen den Report).
+
+A) ERSTER BAU (in Claude Code) — empfohlen:
+     /graphify .            (kleines/mittleres Projekt; html/js/css in EINEM Graph)
+   Sehr grosse Projekte (>500 Dateien): NICHT blind "/graphify .", sondern auf
+   die Quell-Ordner scopen, z.B.:  /graphify js   bzw.  js + *.html.
+
+B) AKTUALISIEREN nach Code-Aenderungen (schnell, kein LLM):
+   WARNUNG: "graphify update ." respektiert eine GEFILTERTE Scope NICHT — es
+   re-extrahiert das GANZE Verzeichnis (inkl. Legacy/Archiv) und blaeht den
+   Graphen auf (legt vorher Backup in graphify-out/<DATUM>/ an). Nur verwenden,
+   wenn das Projekt ohnehin ungefiltert erfasst wird. Bei gefilterter Scope:
+   gezielt  graphify update <einzelne-datei.js>  (nur AST) ODER manueller
+   gefilterter Rebuild (detect -> filtern -> AST -> semantischer Pass -> build).
+     graphify update .      (nur fuer UNGEFILTERTE Projekte)
+   (Re-extrahiert nur neue/geaenderte Dateien und schreibt graph.json fort.)
+   Hinweis: Schreibt "graphify update <pfad>" die Ausgabe in <pfad>\graphify-out\
+   statt ins Root, danach graph.html/graph.json/GRAPH_REPORT.md ins Root-
+   graphify-out\ kopieren (oder gleich "/graphify ." nutzen, der schreibt ins Root).
+
+C) REINES CLI ohne Claude (headless/CI):
+     graphify extract .     (nur AST-Struktur, ohne LLM-Semantik)
+
+Danach den Graphen anschauen:
+     start graphify-out\graph.html
+
+
+--------------------------------------------------------------------------------
+3) DEN GRAPHEN ABFRAGEN  (statt Dateien grep/lesen)
+--------------------------------------------------------------------------------
+  graphify query "Wie haengt X mit Y zusammen?"
+  graphify query "Was passiert beim ...?" --budget 1500
+  graphify explain "<Node>"        # Node + Nachbarn erklaeren
+  graphify path "A" "B"            # kuerzester Pfad zwischen zwei Nodes
+  graphify affected "<Node>"       # Impact: was bricht, wenn ich X aendere
+
+Tipp: --budget N begrenzt die Ausgabe (Default 2000 Tokens).
+
+
+--------------------------------------------------------------------------------
+4) *** GRAPHIFY-FIRST: GRAPH STATT CODEBASE LESEN (Token-Spar-Modus) ***
+--------------------------------------------------------------------------------
+Snippet (steht bereits in WEITERMACHEN_PROMPT_TEMPLATE.txt und in der
+projektlokalen CLAUDE.md — hier zur Referenz):
+
+  ----------------------------------------------------------------------------
+  GRAPHIFY-FIRST (Token sparen):
+  1. Lies ZUERST  graphify-out/GRAPH_REPORT.md  fuer den Projektueberblick.
+  2. Konkrete Fragen ueber die Graph-CLI gegen graphify-out/graph.json:
+       graphify query "..."  /  explain "X"  /  affected "X"  /  path "A" "B"
+     statt die Codebase zu durchsuchen.
+  3. Einzelne Quelldateien NUR oeffnen, wenn (a) der Graph nicht ausreicht oder
+     (b) du tatsaechlich Code aenderst (dann: Datei vorher mit Read oeffnen).
+  4. Fehlt graphify-out/ oder ist veraltet:  /graphify .  bzw.  graphify update .
+  ----------------------------------------------------------------------------
+
+DAUERHAFT verankert (so muss es nicht erneut geklaert werden):
+- START_PROMPT.txt        -> baut Graph beim ersten Lauf + GRAPHIFY-FIRST-Lesen.
+- WEITERMACHEN_PROMPT.txt -> GRAPHIFY-FIRST oben in der Lesereihenfolge.
+- GUIDELINES_v2.md §0     -> Knowledge-Graph-Pflicht + Scope + Update-Regel.
+- SESSION_PROTOCOL.md §C  -> GRAPHIFY-FIRST + GRAPHIFY-UPDATE pro Durchlauf.
+- CLAUDE.md im Projektroot-> wird von Claude Code bei JEDER Session autoload.
+
+
+--------------------------------------------------------------------------------
+5) GRENZEN
+--------------------------------------------------------------------------------
+- Der Graph ist nur so frisch wie sein letzter Build -> nach Aenderungen
+  "graphify update ." (sonst beschreibt der Report alten Code).
+- Reine AST-Extraktion ohne GEMINI_API_KEY/GOOGLE_API_KEY = Code-Struktur ohne
+  semantische Community-Namen. Fuer semantische Doku den vollen "/graphify ."-Lauf
+  (teurer, Subagents) oder einen API-Key nutzen.
+- graph.json NIE komplett in den Chat lesen — nur per query/explain.
+
+
+--------------------------------------------------------------------------------
+6) SCHNELLREFERENZ
+--------------------------------------------------------------------------------
+  graphify --version                 Installation pruefen
+  /graphify .                        (in Claude) ganzen Projekt-Graph bauen
+  graphify update .                  Graph nach Code-Aenderung auffrischen (kein LLM)
+  graphify query "<frage>"           Graphfrage beantworten
+  graphify explain "<Node>"          Node + Nachbarn erklaeren
+  graphify path "A" "B"              kuerzester Pfad zwischen zwei Nodes
+  graphify affected "<Node>"         Impact-Analyse (was haengt davon ab)
+  start graphify-out\graph.html      interaktiven Graphen im Browser oeffnen
+  python -m graphify <...>           Fallback, falls graphify nicht im PATH
+================================================================================
